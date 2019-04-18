@@ -1,16 +1,15 @@
 <template>
   <div class="app-container">
+    <h1>{{ id }}</h1>
     <div style="text-align: left;">
       <el-button type="primary" style="margin-left: 15px;" @click="handleCreate">新建</el-button>
     </div>
-
     <el-table v-loading="listLoading" :data="list" border fit>
       <el-table-column prop="id" label="id" width="40" align="center"/>
       <el-table-column prop="name" label="部门名字" align="center"/>
       <el-table-column prop="extension" label="部门描述" align="center"/>
-      <el-table-column label="操作" align="center" width="300">
+      <el-table-column label="操作" align="center" width="200">
         <template slot-scope="scope">
-          <el-button type="success" @click="redictToDepartmentUser(scope.row)">人员管理</el-button>
           <el-button type="primary" @click="handleUpdate(scope.row)">编辑</el-button>
           <el-button type="danger" @click="handleDelete(scope.row)">删除</el-button>
         </template>
@@ -45,6 +44,9 @@ import { getList, updateDepartment, createDepartment, deleteDepartment } from '@
 
 export default {
   // name: 'table',
+  props: {
+    id: '0'
+  },
   data() {
     return {
       temp: {
@@ -182,9 +184,6 @@ export default {
           type: 'success'
         })
       })
-    },
-    redictToDepartmentUser(row) {
-      this.$router.push({ name: 'departmentUser', params: { id: row.id }})
     }
   }
 }
